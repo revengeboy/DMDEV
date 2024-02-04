@@ -11,7 +11,7 @@ public class FirstExercise {
         printQuarterOfHour(999);
     }
 
-    public static void printQuarterOfHour(int minutes) {
+    private static void printQuarterOfHour(int minutes) {
         if (minutes >= 0 && minutes <= 15) {
             System.out.println("First Quarter");
         } else if (minutes > 15 && minutes <= 30) {

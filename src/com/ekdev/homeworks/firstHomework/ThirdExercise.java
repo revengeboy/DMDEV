@@ -8,11 +8,11 @@ public class ThirdExercise {
         compareAreasOfRightTriangles(getAreaOfRightTriangle(8, 8), getAreaOfRightTriangle(4, 4));
     }
 
-    public static double getAreaOfRightTriangle(int a, int b) {
+    private static double getAreaOfRightTriangle(int a, int b) {
         return 0.5 * (a * b);
     }
 
-    public static void compareAreasOfRightTriangles(double firstArea, double secondArea) {
+    private static void compareAreasOfRightTriangles(double firstArea, double secondArea) {
         if (firstArea > secondArea) {
             System.out.println("Area of the first triangle is greater");
         } else if (secondArea > firstArea) {

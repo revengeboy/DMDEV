@@ -11,7 +11,7 @@ public class SecondExercise {
         System.out.println(mathFunctions(5, 5, '?'));
     }
 
-    public static double mathFunctions(double operand1, double operand2, char operation) {
+    private static double mathFunctions(double operand1, double operand2, char operation) {
         if (operation == '+') {
             return operand1 + operand2;
         } else if (operation == '-') {
