@@ -5,8 +5,8 @@ public class FirstExercise {
     public static void main(String[] args) {
         System.out.println(getAmountOfEvenNumbers(1234));
         System.out.println(getAmountOfOddNumbers(3789));
-        System.out.println(getAmountOfEvenNumbers(-1234));
-        System.out.println(getAmountOfOddNumbers(-334455));
+        System.out.println(getAmountOfEvenNumbers(- 1234));
+        System.out.println(getAmountOfOddNumbers(- 334455));
     }
 
     private static int getAmountOfEvenNumbers(int numberToCheck) {
