@@ -25,17 +25,13 @@ public class FirstExercise {
     }
 
     private static String removeConsDuplicateFromString(String initialString) {
-        if (initialString == null || initialString.isEmpty()) {
-            return "";
-        }
-        char[] stringChars = initialString.toCharArray();
-        StringBuilder stringWithoutConsDuplicates = new StringBuilder();
-        stringWithoutConsDuplicates.append(stringChars);
-        for (int i = 1; i < stringChars.length; i++) {
-            if (stringChars[i] != stringChars[i - 1]) {
-                stringWithoutConsDuplicates.append(stringChars[i]);
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < initialString.length(); i++) {
+            String charString = String.valueOf(initialString.charAt(i));
+            if (! result.toString().contains(charString)) {
+                result.append(initialString.charAt(i));
             }
         }
-        return stringWithoutConsDuplicates.toString();
+        return result.toString();
     }
 }
