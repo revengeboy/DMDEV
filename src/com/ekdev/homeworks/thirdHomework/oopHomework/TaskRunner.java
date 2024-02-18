@@ -1,5 +1,10 @@
 package com.ekdev.homeworks.thirdHomework.oopHomework;
 
+import com.ekdev.homeworks.thirdHomework.oopHomework.house.Flat;
+import com.ekdev.homeworks.thirdHomework.oopHomework.house.Floor;
+import com.ekdev.homeworks.thirdHomework.oopHomework.house.House;
+import com.ekdev.homeworks.thirdHomework.oopHomework.house.Room;
+
 public class TaskRunner {
 
     //пробелы тут исключительно для читабельности
@@ -28,11 +33,11 @@ public class TaskRunner {
     private static void printAllInformation(House house) {
         System.out.println("Вся информация:");
         house.print();
-        for (Floor floor : house.floors) {
+        for (Floor floor : house.getFloors()) {
             floor.print();
-            for (Flat flat : floor.flats) {
+            for (Flat flat : floor.getFlats()) {
                 flat.print();
-                for (Room room : flat.rooms) {
+                for (Room room : flat.getRooms()) {
                     room.print();
                 }
             }
