@@ -16,6 +16,7 @@ public class ATM {
 
     public boolean withDraw(int amount) {
         System.out.println("Желаемая сумма: " + amount);
+        System.out.println();
         if (isEnoughMoneyInATM(amount)) {
             withDrawProcess(amount);
             return true;
@@ -26,29 +27,87 @@ public class ATM {
 
     public void withDrawProcess(int amount) {
         int i = amount % 50;
-        if (i == 0 && amount < getFiftyBanknoteSum()) {
-            System.out.println("Банкомат выдал купюры по 50 количеством: " + amount / 50);
-        } else if (amount > getFiftyBanknoteSum()) {
-            int amountAfterFifty = amount - getFiftyBanknoteSum();
-            System.out.println("Банкомат выдал все купюры по 50 количеством: " + amount / 50);
+        if (amount > getFiftyBanknoteSum()) {
+            int amountAfterAllFifties = withDrawAllFifties(amount);
+            int y = amountAfterAllFifties % 20;
+            if (amountAfterAllFifties > getTwentyBanknoteSum()) {
+                int amountAfterAllTwenties = withDrawAllTwenties(amountAfterAllFifties);
+                if (amountAfterAllTwenties % 10 == 0 && amountAfterAllTwenties < getTenBanknoteSum()) {
+                    withDrawTens(amountAfterAllTwenties);
+                }
+            } else if (y == 0 && amountAfterAllFifties < getTwentyBanknoteSum()) {
+                withDrawTwenties(amountAfterAllFifties);
+            } else if (y != 0 && amountAfterAllFifties < getTwentyBanknoteSum()) {
+                int amountAfterTwenty = withDrawTwenties(amountAfterAllFifties);
+                if (amountAfterTwenty % 10 == 0 && amountAfterTwenty < getTenBanknoteSum()) {
+                    withDrawTens(amountAfterTwenty);
+                }
+            }
+        } else if (i == 0 && amount < getFiftyBanknoteSum()) {
+            withDrawFifties(amount);
+        } else if (i != 0 && amount < getFiftyBanknoteSum()) {
+            int amountAfterFifty = withDrawFifties(amount);
             int y = amountAfterFifty % 20;
-            if (y == 0 && amountAfterFifty < getTwentyBanknoteSum()) {
-                System.out.println("Банкомат выдал купюры по 20 количеством: " + amount / 50);
-            } else if (amountAfterFifty > getTwentyBanknoteSum()) {
-                int amountAfterTwenty = amountAfterFifty - getTwentyBanknoteSum();
-                System.out.println("Банкомат выдал все купюры по 20 количеством: " + amount / 50);
-                int z = amountAfterTwenty % 10;
-                if (z == 0 && amountAfterTwenty < getTenBanknoteSum()) {
-                    System.out.println("Банкомат выдал купюры по 10 количеством: " + i / 10);
+            if (amountAfterFifty > getTwentyBanknoteSum()) {
+                int amountAfterAllTwenties = withDrawAllTwenties(amountAfterFifty);
+                if (amountAfterAllTwenties % 10 == 0 && amountAfterAllTwenties < getTenBanknoteSum()) {
+                    withDrawTens(amountAfterAllTwenties);
+                }
+            } else if (y == 0 && amountAfterFifty < getTwentyBanknoteSum()) {
+                withDrawTwenties(amountAfterFifty);
+            } else if (y != 0 && amountAfterFifty < getTwentyBanknoteSum()) {
+                int amountAfterTwenty = withDrawTwenties(amountAfterFifty);
+                if (amountAfterTwenty % 10 == 0 && amountAfterTwenty < getTenBanknoteSum()) {
+                    withDrawTens(amountAfterTwenty);
                 }
             }
         }
     }
 
+    private int withDrawFifties(int amount) {
+        int fiftyAmountToWithdraw = amount / 50;
+        System.out.println("Банкомат выдал купюры по 50 количеством: " + fiftyAmountToWithdraw);
+        setFiftyBanknoteAmount(getFiftyBanknoteAmount() - fiftyAmountToWithdraw);
+        return amount - 50 * fiftyAmountToWithdraw;
+    }
+
+    private int withDrawAllFifties(int amount) {
+        System.out.println("Банкомат выдал все купюры по 50 количеством: " + getFiftyBanknoteAmount());
+        setFiftyBanknoteAmount(0);
+        return amount - getFiftyBanknoteSum();
+    }
+
+    private int withDrawTwenties(int amount) {
+        int twentyAmountToWithdraw = amount / 20;
+        System.out.println("Банкомат выдал купюры по 20 количеством: " + twentyAmountToWithdraw);
+        setTwentyBanknoteAmount(getTwentyBanknoteAmount() - twentyAmountToWithdraw);
+        return amount - 20 * twentyAmountToWithdraw;
+    }
+
+    private int withDrawAllTwenties(int amount) {
+        System.out.println("Банкомат выдал все купюры по 20 количеством: " + getTenBanknoteAmount());
+        setTwentyBanknoteAmount(0);
+        return amount - getTwentyBanknoteSum();
+    }
+
+    private void withDrawTens(int amount) {
+        int tenAmountToWithdraw = amount / 10;
+        System.out.println("Банкомат выдал купюры по 10 количеством: " + tenAmountToWithdraw);
+        setTenBanknoteAmount(getTenBanknoteAmount() - tenAmountToWithdraw);
+    }
+
     private boolean isEnoughMoneyInATM(int amount) {
-        int moneyInATM = calculateAllMoneyInATM();
-        System.out.println("Сумма в банкомате: " + moneyInATM);
-        return amount < moneyInATM;
+        int allMoneyInATM = calculateAllMoneyInATM();
+        printInfoAboutMoneyInATM(allMoneyInATM);
+        return amount < allMoneyInATM;
+    }
+
+    private void printInfoAboutMoneyInATM(int allMoney) {
+        System.out.println("Сумма в банкомате: " + allMoney);
+        System.out.println("Количество купюр по 50: " + getFiftyBanknoteAmount());
+        System.out.println("Количество купюр по 20: " + getTwentyBanknoteAmount());
+        System.out.println("Количество купюр по 10: " + getTenBanknoteAmount());
+        System.out.println();
     }
 
     private int calculateAllMoneyInATM() {

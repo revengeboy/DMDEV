@@ -9,6 +9,6 @@ public class TaskRunner {
         atm.setFiftyBanknoteAmount(5);
         atm.setTwentyBanknoteAmount(5);
         atm.setTenBanknoteAmount(5);
-        System.out.println(atm.withDraw(380));
+        System.out.println(atm.withDraw(180));
     }
 }
