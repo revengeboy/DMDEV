@@ -27,7 +27,9 @@ public class ATM {
 
     public void withDrawProcess(int amount) {
         int i = amount % 50;
-        if (amount > getFiftyBanknoteSum()) {
+        if (amount == calculateAllMoneyInATM()) {
+            withDrawAllMoney();
+        } else if (amount > getFiftyBanknoteSum()) {
             int amountAfterAllFifties = withDrawAllFifties(amount);
             int y = amountAfterAllFifties % 20;
             if (amountAfterAllFifties > getTwentyBanknoteSum()) {
@@ -73,8 +75,9 @@ public class ATM {
 
     private int withDrawAllFifties(int amount) {
         System.out.println("Банкомат выдал все купюры по 50 количеством: " + getFiftyBanknoteAmount());
+        int amountAfterAllFifties = amount - getFiftyBanknoteSum();
         setFiftyBanknoteAmount(0);
-        return amount - getFiftyBanknoteSum();
+        return amountAfterAllFifties;
     }
 
     private int withDrawTwenties(int amount) {
@@ -86,8 +89,9 @@ public class ATM {
 
     private int withDrawAllTwenties(int amount) {
         System.out.println("Банкомат выдал все купюры по 20 количеством: " + getTenBanknoteAmount());
+        int amountAfterAllTwenties = amount - getTwentyBanknoteSum();
         setTwentyBanknoteAmount(0);
-        return amount - getTwentyBanknoteSum();
+        return amountAfterAllTwenties;
     }
 
     private void withDrawTens(int amount) {
@@ -96,10 +100,20 @@ public class ATM {
         setTenBanknoteAmount(getTenBanknoteAmount() - tenAmountToWithdraw);
     }
 
+    private void withDrawAllMoney() {
+        System.out.println("Банкомат выдает всю сумму!");
+        System.out.println("Банкомат выдал купюры по 50 количеством: " + getFiftyBanknoteAmount());
+        System.out.println("Банкомат выдал купюры по 20 количеством: " + getTwentyBanknoteAmount());
+        System.out.println("Банкомат выдал купюры по 10 количеством: " + getTenBanknoteAmount());
+        setFiftyBanknoteAmount(0);
+        setTwentyBanknoteAmount(0);
+        setTenBanknoteAmount(0);
+    }
+
     private boolean isEnoughMoneyInATM(int amount) {
         int allMoneyInATM = calculateAllMoneyInATM();
         printInfoAboutMoneyInATM(allMoneyInATM);
-        return amount < allMoneyInATM;
+        return amount <= allMoneyInATM;
     }
 
     private void printInfoAboutMoneyInATM(int allMoney) {
