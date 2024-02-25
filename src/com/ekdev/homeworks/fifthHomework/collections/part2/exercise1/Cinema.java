@@ -6,20 +6,56 @@ public class Cinema {
 
     Map<Integer, List<Film>> cinemaMap;
 
-    private Map<Integer, List<Film>> getFilmsByYear(Integer year, List<Film> allFilms) {
+    public Cinema(Integer year, List<Film> allFilms) {
+        this.cinemaMap = getFilmListByYear(year, allFilms);
+    }
+
+    public void addNewFilm(Film film) {
+        Collection<List<Film>> allFilms = this.cinemaMap.values();
+        for (List<Film> filmsList : allFilms) {
+            if (filmsList.contains(film)) {
+                return;
+            }
+        }
+        this.cinemaMap.put(film.getYear(), List.of(film));
+    }
+
+    public List<Film> getFilmListByYear(int year) {
+        return this.cinemaMap.get(year);
+    }
+
+    public List<Film> getFilmListByYearAndMonth(int year, int month) {
         List<Film> filmList = new ArrayList<>();
-        for (Film film : allFilms) {
-            if (film.getYear() == year) {
+        List<Film> filmsOfThisYear = this.cinemaMap.get(year);
+        for (Film film : filmsOfThisYear) {
+            if (film.getMonth() == month) {
                 filmList.add(film);
             }
         }
-        Map<Integer, List<Film>> cinemaMap = new HashMap<>();
-        cinemaMap.put(year, filmList);
-        return cinemaMap;
+        return filmList;
     }
 
-    public Cinema(Integer year, List<Film> allFilms) {
-        this.cinemaMap = getFilmsByYear(year, allFilms);
+    public List<Film> getFilmListByGenre(String genre) {
+        List<Film> filmList = new ArrayList<>();
+        Collection<List<Film>> allFilms = this.cinemaMap.values();
+        for (List<Film> filmsList : allFilms) {
+            for (Film film : filmsList) {
+                if (film.getGenre().equals(genre)) {
+                    filmList.add(film);
+                }
+            }
+        }
+        return filmList;
+    }
+
+    public List<Film> getTopFilmsByRating() {
+        List<Film> filmList = new ArrayList<>();
+        Collection<List<Film>> allFilms = this.cinemaMap.values();
+        for (List<Film> filmsList : allFilms) {
+            filmList.addAll(filmsList);
+        }
+        filmList.sort(Comparator.comparing(Film::getRating).reversed());
+        return filmList;
     }
 
     public Map<Integer, List<Film>> getCinemaMap() {
@@ -52,5 +88,17 @@ public class Cinema {
         return "Cinema{" +
                 "cinemaMap=" + cinemaMap +
                 '}';
+    }
+
+    private Map<Integer, List<Film>> getFilmListByYear(Integer year, List<Film> allFilms) {
+        List<Film> filmList = new ArrayList<>();
+        for (Film film : allFilms) {
+            if (film.getYear() == year) {
+                filmList.add(film);
+            }
+        }
+        Map<Integer, List<Film>> cinemaMap = new HashMap<>();
+        cinemaMap.put(year, filmList);
+        return cinemaMap;
     }
 }

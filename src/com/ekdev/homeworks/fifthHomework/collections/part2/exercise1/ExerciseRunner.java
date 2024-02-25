@@ -12,13 +12,22 @@ public class ExerciseRunner {
         Film documentary = new Film(1, 2010, 1, "documentary", 9.2);
 
 
-        List<Film> filmList = new ArrayList<>();
-        filmList.add(action);
-        filmList.add(comedy);
-        filmList.add(thriller);
-        filmList.add(documentary);
+        List<Film> allFilmsList = new ArrayList<>();
+        allFilmsList.add(action);
+        allFilmsList.add(comedy);
+        allFilmsList.add(thriller);
+        allFilmsList.add(documentary);
 
-        Cinema cinema = new Cinema(2005, filmList);
+        Cinema cinema = new Cinema(2005, allFilmsList);
         System.out.println(cinema);
+
+        cinema.addNewFilm(action);
+        cinema.addNewFilm(thriller);
+        System.out.println(cinema);
+
+        System.out.println(cinema.getFilmListByYear(2007));
+        System.out.println(cinema.getFilmListByYearAndMonth(2005, 5));
+        System.out.println(cinema.getFilmListByGenre("action"));
+        System.out.println(cinema.getTopFilmsByRating());
     }
 }
