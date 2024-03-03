@@ -2,19 +2,25 @@ package com.ekdev.homeworks.sixthHomework.functionalProgramming.student;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Student {
 
-    private String name;
-    private String surname;
+    private String firstName;
+    private String lastName;
     private Integer course;
     private List<Double> assessmentsList;
 
-    public Student(String name, String surname, Integer course, List<Double> assessmentsList) {
-        this.name = name;
-        this.surname = surname;
+    public Student(String firstName, String lastName, Integer course, List<Double> assessmentsList) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.course = course;
         this.assessmentsList = assessmentsList;
+    }
+
+    public Student(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public static double getAverageGrade(List<Double> grades) {
@@ -24,20 +30,26 @@ public class Student {
                 .orElse(0.0);
     }
 
-    public String getName() {
-        return name;
+    public static List<Student> getStudentListByCourse(List<Student> studentList, int course) {
+        return studentList.stream()
+                .filter(student -> student.getCourse() == course)
+                .collect(Collectors.toList());
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getSurname() {
-        return surname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public Integer getCourse() {
@@ -65,19 +77,19 @@ public class Student {
             return false;
         }
         Student student = (Student) o;
-        return Objects.equals(name, student.name) && Objects.equals(surname, student.surname) && Objects.equals(course, student.course) && Objects.equals(assessmentsList, student.assessmentsList);
+        return Objects.equals(firstName, student.firstName) && Objects.equals(lastName, student.lastName) && Objects.equals(course, student.course) && Objects.equals(assessmentsList, student.assessmentsList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, course, assessmentsList);
+        return Objects.hash(firstName, lastName, course, assessmentsList);
     }
 
     @Override
     public String toString() {
         return "Student{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", course=" + course +
                 ", assessmentsList=" + assessmentsList +
                 '}';
