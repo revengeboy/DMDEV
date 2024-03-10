@@ -1,7 +1,7 @@
 package com.ekdev.homeworks.sixthHomework.functionalProgramming;
 
 import com.ekdev.homeworks.sixthHomework.functionalProgramming.student.Student;
-import com.ekdev.homeworks.sixthHomework.functionalProgramming.studentsAndAverage.StudentsAndAverageObject;
+import com.ekdev.homeworks.sixthHomework.functionalProgramming.studentsAndAverage.Report;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +22,7 @@ public class ExerciseRunner {
         mapWithStudentsSorted.put(secondCourse, Util.sortStudentsByLastAndFirstName(studentsList, secondCourse));
         System.out.println(mapWithStudentsSorted);
 
-        Map<Integer, StudentsAndAverageObject> mapWithStudentsSortedAndAverage = new HashMap<>();
+        Map<Integer, Report> mapWithStudentsSortedAndAverage = new HashMap<>();
         int thirdCourse = 3;
         mapWithStudentsSortedAndAverage.put(thirdCourse, Util.createStudentsAndAverageObject(studentsList,
                 thirdCourse, 3));

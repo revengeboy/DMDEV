@@ -1,7 +1,7 @@
 package com.ekdev.homeworks.sixthHomework.functionalProgramming;
 
 import com.ekdev.homeworks.sixthHomework.functionalProgramming.student.Student;
-import com.ekdev.homeworks.sixthHomework.functionalProgramming.studentsAndAverage.StudentsAndAverageObject;
+import com.ekdev.homeworks.sixthHomework.functionalProgramming.studentsAndAverage.Report;
 
 import java.util.Comparator;
 import java.util.List;
@@ -27,9 +27,9 @@ public class Util {
                 .collect(Collectors.toList());
     }
 
-    public static StudentsAndAverageObject createStudentsAndAverageObject(List<Student> allStudents, int course,
-                                                                          int assessmentsCount) {
+    public static Report createStudentsAndAverageObject(List<Student> allStudents, int course,
+                                                        int assessmentsCount) {
         double average = getAverageAssessment(allStudents, course, assessmentsCount);
-        return new StudentsAndAverageObject(allStudents, average);
+        return new Report(allStudents, average);
     }
 }

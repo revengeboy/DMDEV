@@ -5,12 +5,12 @@ import com.ekdev.homeworks.sixthHomework.functionalProgramming.student.Student;
 import java.util.List;
 import java.util.Objects;
 
-public class StudentsAndAverageObject {
+public class Report {
 
     private List<Student> studentList;
     private Double average;
 
-    public StudentsAndAverageObject(List<Student> studentList, Double average) {
+    public Report(List<Student> studentList, Double average) {
         this.studentList = studentList;
         this.average = average;
     }
@@ -39,7 +39,7 @@ public class StudentsAndAverageObject {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        StudentsAndAverageObject that = (StudentsAndAverageObject) o;
+        Report that = (Report) o;
         return Objects.equals(studentList, that.studentList) && Objects.equals(average, that.average);
     }
 
@@ -50,7 +50,7 @@ public class StudentsAndAverageObject {
 
     @Override
     public String toString() {
-        return "StudentsAndAverageObject{" +
+        return "Report{" +
                 "studentList=" + studentList +
                 ", average=" + average +
                 '}';
