@@ -10,8 +10,8 @@ public class ExerciseRunner {
     public static void main(String[] args) throws InterruptedException {
         Mage fireMage = new Mage("Fire");
         Mage airMage = new Mage("Air");
-        Midnight midnight = new Midnight(airMage);
-        Planet planet = new Planet(airMage, midnight, 100);
+        Midnight midnight = new Midnight(airMage, fireMage);
+        Planet planet = new Planet(airMage, fireMage, midnight, 100);
         Rocket fireMageRocket = new Rocket(fireMage, planet, midnight);
         Rocket airMageRocket = new Rocket(airMage, planet, midnight);
 

@@ -5,15 +5,21 @@ import com.ekdev.homeworks.eighthHomework.model.mage.Mage;
 public class Midnight extends Thread {
 
     private final Object lock = new Object();
-    private final Mage mage;
+    private final Mage firstMage;
+    private final Mage secondMage;
     public static final int MIDNIGHT_HOUR = 24;
     public static int MIDNIGHT_COUNTER = 1;
+
+    public Midnight(Mage firstMage, Mage secondMage) {
+        this.firstMage = firstMage;
+        this.secondMage = secondMage;
+    }
 
     @Override
     public void run() {
         synchronized (lock) {
             try {
-                while (mage.getCrystalsAmount() <= 500) {
+                while (firstMage.getCrystalsAmount() <= 500 || secondMage.getCrystalsAmount() <= 500) {
                     System.out.printf("\nMidnight number %s in process", MIDNIGHT_COUNTER);
                     MIDNIGHT_COUNTER++;
                     lock.notifyAll();
@@ -27,10 +33,6 @@ public class Midnight extends Thread {
         synchronized (lock) {
             lock.notifyAll();
         }
-    }
-
-    public Midnight(Mage mage) {
-        this.mage = mage;
     }
 
     public Object getLock() {
