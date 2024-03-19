@@ -22,28 +22,33 @@ public class Rocket extends Thread {
     @Override
     public void run() {
         try {
-            if (mage.getCrystalsAmount() < 500) {
+            while (mage.getCrystalsAmount() <= 500) {
                 mage.updateCrystalsCount(getCrystalsFromPlanet());
                 waitNextLaunch();
-            } else {
-                System.err.printf("Mage %s has reached 500 crystals!", mage.getName());
+                System.out.println();
+                System.out.println(mage.getName() + " mage collected " + mage.getCrystalsAmount() + " of crystals");
             }
+            System.exit(1);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
 
     private int getCrystalsFromPlanet() {
-        int crystalsCollectedFromPlanet = RandomNumbers.getRandomInt(MIN_CRYSTALS_PER_ROCKET, MAX_CRYSTALS_PER_ROCKET);
+        int crystalsToCollectFromPlanet = RandomNumbers.getRandomInt(MIN_CRYSTALS_PER_ROCKET, MAX_CRYSTALS_PER_ROCKET);
         synchronized (planet.getLock()) {
-            if (planet.getCrystalsAmount() < crystalsCollectedFromPlanet) {
-                System.out.printf("Crystals amount for rocket of %s mage too low, we leave planet with empty rocket",
+            int crystalsAmountGrown = planet.getCrystalsAmount();
+            if (crystalsAmountGrown < crystalsToCollectFromPlanet) {
+                System.out.printf("\nCrystals amount %s mage rocket too low, we leave planet with empty rocket",
                         mage.getName());
+                System.out.printf("\nAmount of crystals grown: %d", crystalsAmountGrown);
+                System.out.printf("\n%s mage rocket expected at least: %d\n", mage.getName(),
+                        crystalsToCollectFromPlanet);
             } else {
-                planet.updateCrystalsCountAtPlanet(crystalsCollectedFromPlanet);
+                planet.updateCrystalsCountAtPlanet(crystalsToCollectFromPlanet);
             }
         }
-        return crystalsCollectedFromPlanet;
+        return crystalsToCollectFromPlanet;
     }
 
     private void waitNextLaunch() throws InterruptedException {

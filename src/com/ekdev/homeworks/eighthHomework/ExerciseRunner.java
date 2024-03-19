@@ -8,10 +8,10 @@ import com.ekdev.homeworks.eighthHomework.model.rocket.Rocket;
 public class ExerciseRunner {
 
     public static void main(String[] args) throws InterruptedException {
-        Midnight midnight = new Midnight();
-        Planet planet = new Planet(midnight, 100);
         Mage fireMage = new Mage("Fire");
         Mage airMage = new Mage("Air");
+        Midnight midnight = new Midnight(airMage);
+        Planet planet = new Planet(airMage, midnight, 100);
         Rocket fireMageRocket = new Rocket(fireMage, planet, midnight);
         Rocket airMageRocket = new Rocket(airMage, planet, midnight);
 
@@ -24,8 +24,5 @@ public class ExerciseRunner {
         planet.join();
         fireMageRocket.join();
         airMageRocket.join();
-
-        System.out.println(fireMage.getName() + " mage collected " + fireMage.getCrystalsAmount() + " of crystals");
-        System.out.println(airMage.getName() + " mage collected " + airMage.getCrystalsAmount() + " of crystals");
     }
 }
